@@ -1,42 +1,68 @@
-describe("Package", function() {
-  describe("interstateFee", function() {
-    it("Charges $5 for outside Oregon shipping", function() {
-      var testPackage = Object.create(Package);
-      testPackage.destination = "colorado";
-      testPackage.interstateFee();
-      testPackage.estimate.should.equal(5);
+describe("Player", function() {
+  describe("initialize", function() {
+    it("is initialized with a symbol", function() {
+      var testPlayer = Object.create(Player);
+      testPlayer.initialize("X");
+      testPlayer.symbol.should.equal("X");
     });
   });
 
-  describe("Dimension Fee", function() {
-    it("Adds $5 for a package that has a total lwh dimension between 25 and 75", function() {
-      var testPackage = Object.create(Package);
-      testPackage.length = 3;
-      testPackage.width = 4;
-      testPackage.height = 5;
-      testPackage.dimension();
-      testPackage.estimate.should.equal(5);
+  describe("create", function() {
+    it("creates a new player object", function() {
+      var testPlayer = Player.create("X");
+      Player.isPrototypeOf(testPlayer).should.equal(true);
     });
   });
+});
 
-  describe("Package Weight", function() {
-    it("Adds .25 for each lb and then raises it to the power of 1.5 for compounding effect, rounded to the next cent", function() {
-      var testPackage = Object.create(Package);
-      testPackage.weight = 11;
-      testPackage.weightFee();
-      testPackage.estimate.should.equal(4.56);
+describe("Space", function() {
+  describe("initialize", function() {
+    it("is initialized with an x and y coordinate", function() {
+      var testSpace = Object.create(Space);
+      testSpace = Object.create(Space);
+      testSpace.initialize(1, 2);
+      testSpace.xCoordinate.should.equal(1);
+      testSpace.yCoordinate.should.equal(2);
     });
   });
   
-  describe("calculate", function() {
-    it("runs dimension(), interstateFee(), and weightFee() methods and returns final estimate", function() {
-      var testPackage = Object.create(Package);
-      testPackage.length = 1;
-      testPackage.width = 1;
-      testPackage.height = 1;
-      testPackage.weight = 10;
-      testPackage.destination = "colorado";
-      testPackage.calculateEstimate().should.equal(13.95)
-    })
-  })
+  describe("create", function() {
+    it("Creates positions on a board", function() {
+      var testSpace = Space.create(1,2);
+      Space.isPrototypeOf(testSpace).should.equal(true);
+    });
+  });
+
+  describe("markBy", function() {
+    it("Lets a player mark the space", function() {
+      var testPlayer = Player.create("X");
+      var testSpace = Space.create(1,2);
+      testSpace.markBy(testPlayer);
+      testSpace.markBy.should.equal(testPlayer);
+    });
+  });
 });
+
+
+
+
+
+
+
+
+
+//   describe("assign", function() {
+//     it("Will assign playerOne an X", function() {
+//       var playerOne = Object.create(Player);      
+//       playerOne.assign("x");
+//       playerOne.letter.should.equal("x");
+//     });
+
+//     it("Will assign playerTwo an O", function() {
+//       var playerTwo = Object.create(Player);
+//       playerTwo.assign();
+//       playerTwo.letter.should.equal("o");
+//     });
+//   });
+// });
+
